@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "parkin_lot" : "node parkinlot/parkinglot.js",
+    "offline_wallet" : "npx tsx offline_wallet/index.ts "
+  },
+
   "devDependencies": {
     "tsx": "^4.21.0"
   }

@@ -1,4 +1,4 @@
-enum TransitionsStatus {
+export enum TransitionsStatus {
     SUCESS = "SUCESS",
     FAILED = "FAILED"
 }
@@ -8,5 +8,6 @@ export type Transitions = {
     readonly toUserId: string
     readonly amount: number
     readonly status: TransitionsStatus
+     readonly createdAt :  string
 
 }
