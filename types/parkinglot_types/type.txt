@@ -1,0 +1,1 @@
+Parkinglot code is written in JavaScript there is no need of types @Parkinglot 
