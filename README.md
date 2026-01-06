@@ -1,4 +1,4 @@
-# TypeScript Practice
+# TypeScript OPPS + LLD Practice
 
 Practice repository for learning TypeScript, OOP concepts, and design patterns.
 
