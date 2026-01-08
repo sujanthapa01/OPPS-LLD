@@ -1,6 +1,6 @@
-import { ITransferService } from "../../types/offline_wallet_types/transfer.interface"
-import { IWallet } from "../../types/offline_wallet_types/wallet.interface"
-import { Transitions,TransitionsStatus } from "../../types/offline_wallet_types/transitions.type"
+import { ITransferService } from "../types/transfer.interface"
+import { IWallet } from "../types/wallet.interface"
+import { Transitions,TransitionsStatus } from "../types/transitions.type"
 import { Wallet } from "../models/wallet"
 import {getCurrentDateTime} from "../functions/getCurrentDateTime"
 
