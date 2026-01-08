@@ -1,4 +1,4 @@
-import { IUser } from '../../types/offline_wallet_types/user.interface'
+import { IUser } from '../types/user.interface'
 import { Wallet } from "./wallet"
 
 export class User implements IUser {
