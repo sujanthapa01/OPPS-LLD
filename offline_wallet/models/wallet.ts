@@ -1,5 +1,5 @@
-import { IWallet } from "../types/wallet.interface"
-import { Transitions } from "../types/transitions.type"
+import { IWallet } from "../Types/wallet.interface"
+import { Transitions } from "../Types/transitions.type"
 
 export class Wallet implements IWallet {
 
