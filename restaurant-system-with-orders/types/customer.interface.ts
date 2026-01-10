@@ -1,17 +1,17 @@
 import { TSize } from "./menu.type"; 
 
-export type TOrderIteams = {
-    iteam_no: number;
-    tittle: string;
-    discription?: string;
+export type TOrderItems = {
+    item_no: number;
+    title: string;
+    description?: string;
     size?: TSize["size"];
-    varient?: string[];
+    variants?: string[];
     price: number;
 }
 
 export type TOrder = {
-    Od_no: number;
-    orderd_iteams: TOrderIteams[]; 
+    order_no: number;
+    ordered_items: TOrderItems[]; 
     restaurant: string;
     time: Date;
 }
@@ -22,6 +22,7 @@ export interface ICustomer {
     age: string
     address: string
     pincode: number
+    email:string
     orderHistory: TOrder[]
 
     PlaceOrder(): void

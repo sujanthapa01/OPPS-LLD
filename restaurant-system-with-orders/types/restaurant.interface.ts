@@ -1,6 +1,7 @@
 import {TMenu} from './menu.type'
 import {TManager} from './manager.type'
 import {IBank} from './bank.interface'
+import {TMenuItem,TSize,TVariant} from "./menu.type"
 
 
 
@@ -8,17 +9,13 @@ export interface IRestaurant {
     restaurant_name: string
     owner: string
     restaurantBio : string
-    available_seats: number
     still_serving: boolean
     menu: TMenu
-    timing : string
     manager: TManager
     bank: IBank
       
     Menu() : void
-    AvailableSeats(): number
-    RestaurantBio() : string
-    PlaceOrder(): void
+    PlaceOrder(iteam: TMenuItem, selectedSize: TSize["size"], variant?: TVariant[]): number
 
 
 

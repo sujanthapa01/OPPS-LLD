@@ -1,52 +1,98 @@
-import { ICustomer, TOrder, TOrderIteams } from "../types/customer.interface";
-import { Restraunt } from "./restaurant";
-import { TMenuIteam, TSize, TVarient } from "../types/menu.type";
+import { ICustomer, TOrder, TOrderItems } from "../types/customer.interface";
+import { Restaurant } from "./restaurant";
+import { TMenuItem, TSize, TVariant } from "../types/menu.type";
 
-class Customer implements ICustomer {
-  order_no = 1;
-  orderHistory: TOrder[] = [];
+export class Customer implements ICustomer {
+  private orderCounter = 1;
+  private orderHistory: TOrder[] = [];
 
   constructor(
     public name: string,
-    public age: string,
+    public age: number,
     public address: string,
-    public pincode: number
-  ) {}
+    public pincode: number,
+    public email: string
 
-  Order(
-    restaurant: Restraunt,
-    iteam: TMenuIteam,
-    selectedSize?: TSize,
-    variant?: TVarient[]
+  ) { }
+
+
+  static set(params: {
+    name: string,
+    age: number,
+    address: string,
+    pincode: number,
+    email: string
+
+  }): Customer {
+    return new Customer(
+      params.name,
+      params.age,
+      params.address,
+      params.pincode,
+      params.email
+    )
+  }
+
+
+  placeOrder(
+    restaurant: Restaurant,
+    item: TMenuItem,
+    size?: TSize,
+    variants?: TVariant[]
   ): void {
+    const totalPrice = restaurant.PlaceOrder(
+      item,
+      size?.size,
+      variants
+    );
 
-    
-    const total = restaurant.PlaceOrder(iteam, selectedSize?.size, variant?.map(v => v));
-
-    const orderItem: TOrderIteams = {
-      iteam_no: 1,
-      tittle: iteam.tittle,
-      discription: iteam.discription,
-      size: selectedSize?.size,
-      varient: variant?.map(v => v.tittle),
-      price: total
+    const orderItem: TOrderItems = {
+      item_no: 1,
+      title: item.title,
+      description: item.description,
+      size: size?.size,
+      variants: variants?.map(v => v.title) ?? [],
+      price: totalPrice,
     };
 
     const order: TOrder = {
-      Od_no: this.order_no++,
-      restaurant: restaurant.restraunt_name,
-      orderd_iteams: [orderItem],
-      time: new Date()
+      order_no: this.orderCounter++,
+      restaurant: restaurant.restaurant_name,
+      ordered_items: [orderItem],
+      time: new Date(),
     };
 
     this.orderHistory.push(order);
-
-    console.log(`Order placed: ${iteam.tittle} - ₹${total}`);
+    console.log(`✅ Order placed: ${item.title} - ₹${totalPrice}`);
   }
 
-  CancelOrder(): void {}
-  OrderHistory(): void {}
-  About(): string {
-    return `${this.name}, ${this.age}`;
+  cancelOrder(orderNo: number): void {
+    this.orderHistory = this.orderHistory.filter(
+      order => order.order_no !== orderNo
+    );
+    console.log(`❌ Order ${orderNo} cancelled`);
+  }
+
+  showOrderHistory(): void {
+    if (this.orderHistory.length === 0) {
+      console.log("No orders found.");
+      return;
+    }
+
+    this.orderHistory.forEach(order => {
+      console.log(`
+Order No: ${order.order_no}
+Restaurant: ${order.restaurant}
+Time: ${order.time.toLocaleString()}
+Items:
+${order.ordered_items.map(i =>
+        `- ${i.title} (${i.size ?? "Regular"}) ₹${i.price}`
+      ).join("\n")}
+      `);
+    });
+  }
+
+  about(): string {
+    return `${this.name}, Age: ${this.age}`;
   }
 }
